@@ -17,7 +17,7 @@ import { ImprovedNoise } from "three/addons/math/ImprovedNoise.js";
 
 export class Sun {
   constructor() {
-    this.sunTexture = "/solar-system-threejs/assets/sun-map.jpg";
+    this.sunTexture = "/assets/sun-map.jpg";
     this.group = new Group();
     this.loader = new TextureLoader();
     this.isLightTheme = false;
@@ -26,10 +26,10 @@ export class Sun {
     this.createRim();
     this.addLighting();
     this.createGlow();
-    this.createSun();
+    this.createSun(); // ✅ Must run before animation to avoid undefined errors
 
     this.animate = this.createAnimateFunction();
-    this.animate();
+    this.animate(); // ✅ Now safe to call
   }
 
   createSun() {
@@ -47,6 +47,7 @@ export class Sun {
     this.group.add(this.corona);
     this.group.add(this.glow);
 
+    // ✅ Define update function for animation
     this.group.userData.update = (t) => {
       this.group.rotation.y = -t / 5;
       this.corona.userData.update(t);
@@ -60,16 +61,16 @@ export class Sun {
       side: BackSide,
     });
     this.corona = new Mesh(coronaGeometry, this.coronaMaterial);
-    const coronaNoise = new ImprovedNoise();
 
-    let v3 = new Vector3();
-    let p = new Vector3();
-    let pos = coronaGeometry.attributes.position;
+    const coronaNoise = new ImprovedNoise();
+    const v3 = new Vector3();
+    const p = new Vector3();
+    const pos = coronaGeometry.attributes.position;
     pos.usage = DynamicDrawUsage;
     const len = pos.count;
 
     const update = (t) => {
-      for (let i = 0; i < len; i += 1) {
+      for (let i = 0; i < len; i++) {
         p.fromBufferAttribute(pos, i).normalize();
         v3.copy(p).multiplyScalar(5);
         let ns = coronaNoise.noise(
@@ -98,34 +99,28 @@ export class Sun {
     };
 
     const vertexShader = `
-    uniform float fresnelBias;
-    uniform float fresnelScale;
-    uniform float fresnelPower;
-    
-    varying float vReflectionFactor;
-    
-    void main() {
-      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-      vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
-    
-      vec3 worldNormal = normalize( mat3( modelMatrix[0].xyz, modelMatrix[1].xyz, modelMatrix[2].xyz ) * normal );
-    
-      vec3 I = worldPosition.xyz - cameraPosition;
-    
-      vReflectionFactor = fresnelBias + fresnelScale * pow( 1.0 + dot( normalize( I ), worldNormal ), fresnelPower );
-    
-      gl_Position = projectionMatrix * mvPosition;
-    }
+      uniform float fresnelBias;
+      uniform float fresnelScale;
+      uniform float fresnelPower;
+      varying float vReflectionFactor;
+
+      void main() {
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+        vec3 worldNormal = normalize(mat3(modelMatrix) * normal);
+        vec3 I = worldPosition.xyz - cameraPosition;
+        vReflectionFactor = fresnelBias + fresnelScale * pow(1.0 + dot(normalize(I), worldNormal), fresnelPower);
+        gl_Position = projectionMatrix * mvPosition;
+      }
     `;
 
     const fragmentShader = `
       uniform vec3 color1;
       uniform vec3 color2;
-      
       varying float vReflectionFactor;
-      
+
       void main() {
-        float f = clamp( vReflectionFactor, 0.0, 1.0 );
+        float f = clamp(vReflectionFactor, 0.0, 1.0);
         gl_FragColor = vec4(mix(color2, color1, vec3(f)), f);
       }
     `;
@@ -137,6 +132,7 @@ export class Sun {
       transparent: true,
       blending: AdditiveBlending,
     });
+
     const sunGlowGeometry = new IcosahedronGeometry(5, 12);
     this.glow = new Mesh(sunGlowGeometry, sunGlowMaterial);
     this.glow.scale.setScalar(1.1);
@@ -152,35 +148,30 @@ export class Sun {
     };
 
     const vertexShader = `
-    uniform float fresnelBias;
-    uniform float fresnelScale;
-    uniform float fresnelPower;
-    
-    varying float vReflectionFactor;
-    
-    void main() {
-      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-      vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
-    
-      vec3 worldNormal = normalize( mat3( modelMatrix[0].xyz, modelMatrix[1].xyz, modelMatrix[2].xyz ) * normal );
-    
-      vec3 I = worldPosition.xyz - cameraPosition;
-    
-      vReflectionFactor = fresnelBias + fresnelScale * pow( 1.0 + dot( normalize( I ), worldNormal ), fresnelPower );
-    
-      gl_Position = projectionMatrix * mvPosition;
-    }
+      uniform float fresnelBias;
+      uniform float fresnelScale;
+      uniform float fresnelPower;
+      varying float vReflectionFactor;
+
+      void main() {
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+        vec3 worldNormal = normalize(mat3(modelMatrix) * normal);
+        vec3 I = worldPosition.xyz - cameraPosition;
+        vReflectionFactor = fresnelBias + fresnelScale * pow(1.0 + dot(normalize(I), worldNormal), fresnelPower);
+        gl_Position = projectionMatrix * mvPosition;
+      }
     `;
+
     const fragmentShader = `
-    uniform vec3 color1;
-    uniform vec3 color2;
-    
-    varying float vReflectionFactor;
-    
-    void main() {
-      float f = clamp( vReflectionFactor, 0.0, 1.0 );
-      gl_FragColor = vec4(mix(color2, color1, vec3(f)), f);
-    }
+      uniform vec3 color1;
+      uniform vec3 color2;
+      varying float vReflectionFactor;
+
+      void main() {
+        float f = clamp(vReflectionFactor, 0.0, 1.0);
+        gl_FragColor = vec4(mix(color2, color1, vec3(f)), f);
+      }
     `;
 
     const sunRimMaterial = new ShaderMaterial({
@@ -190,6 +181,7 @@ export class Sun {
       transparent: true,
       blending: AdditiveBlending,
     });
+
     const sunRimGeometry = new IcosahedronGeometry(5, 12);
     this.sunRim = new Mesh(sunRimGeometry, sunRimMaterial);
     this.sunRim.scale.setScalar(1.01);
@@ -204,41 +196,36 @@ export class Sun {
     this.sunLight.shadow.camera.near = 0.5;
     this.sunLight.shadow.camera.far = 100;
     this.group.add(this.sunLight);
-    
+
     this.ambientLight = new AmbientLight(0x404040, 0.5);
     this.group.add(this.ambientLight);
   }
 
   setTheme(theme) {
     this.isLightTheme = theme === 'light';
-    
-    
+
     if (this.sunMaterial) {
       this.sunMaterial.emissive.setHex(this.isLightTheme ? 0xffcc66 : 0xffff99);
       this.sunMaterial.emissiveIntensity = this.isLightTheme ? 1.2 : 1.5;
     }
-    
-    
+
     if (this.coronaMaterial) {
       this.coronaMaterial.color.setHex(this.isLightTheme ? 0xff6600 : 0xff0000);
     }
-    
-    
+
     if (this.glowUniforms) {
       this.glowUniforms.color2.value.setHex(this.isLightTheme ? 0xff5500 : 0xff0000);
     }
-    
-    
+
     if (this.rimUniforms) {
       this.rimUniforms.color1.value.setHex(this.isLightTheme ? 0xffcc66 : 0xffff99);
     }
-    
-    
+
     if (this.sunLight) {
       this.sunLight.color.setHex(this.isLightTheme ? 0xffcc66 : 0xffff99);
       this.sunLight.intensity = this.isLightTheme ? 800 : 1000;
     }
-    
+
     if (this.ambientLight) {
       this.ambientLight.intensity = this.isLightTheme ? 0.3 : 0.5;
     }
@@ -248,7 +235,9 @@ export class Sun {
     return (t = 0) => {
       const time = t * 0.00051;
       requestAnimationFrame(this.animate);
-      this.group.userData.update(time);
+      if (this.group.userData.update) {
+        this.group.userData.update(time);
+      }
     };
   }
 

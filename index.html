@@ -20,7 +20,7 @@
         z-index: 1;
       }
 
-      /* Control Panel Styles - Always dark */
+      /* Control Panel Styles */
       .control-panel {
         position: fixed;
         z-index: 10;
@@ -73,7 +73,7 @@
         padding: 0 15px 15px;
       }
 
-      /* Custom scrollbar for panel */
+      /* Custom scrollbar */
       .panel-content::-webkit-scrollbar {
         width: 6px;
       }
@@ -84,9 +84,6 @@
       .panel-content::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.3);
         border-radius: 3px;
-      }
-      .panel-content::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.5);
       }
 
       .planet-control {
@@ -116,7 +113,6 @@
         color: white;
       }
 
-      /* Global Controls - Always dark */
       .global-controls {
         display: flex;
         gap: 10px;
@@ -150,7 +146,6 @@
         background: rgba(255, 87, 51, 0.3);
       }
 
-      /* Theme Toggle - Special styling */
       .theme-toggle {
         position: fixed;
         z-index: 10;
@@ -170,7 +165,6 @@
         background: rgba(255, 255, 255, 0.2);
       }
 
-      /* Tooltip styles */
       .tooltip {
         position: absolute;
         background: rgba(0, 0, 0, 0.8);
@@ -185,7 +179,6 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
       }
 
-      /* Zoom instructions */
       .zoom-instructions {
         position: fixed;
         z-index: 10;
@@ -201,7 +194,6 @@
         max-width: 250px;
       }
 
-      /* Mobile styles */
       @media (max-width: 768px) {
         .control-panel {
           max-width: 280px;
@@ -216,7 +208,7 @@
         }
         
         button {
-          width: 100%;
+          width: 50%;
         }
 
         .zoom-instructions {
@@ -224,46 +216,7 @@
         }
       }
 
-      /* Loader styles */
-      .loader-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 1s ease-out;
-      }
-
-      .loader-hidden {
-        opacity: 0;
-      }
-
-      .stars {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="10%" cy="15%" r="1" fill="white"/><circle cx="20%" cy="30%" r="1" fill="white"/><circle cx="30%" cy="25%" r="1" fill="white"/><circle cx="40%" cy="10%" r="1" fill="white"/><circle cx="50%" cy="20%" r="1" fill="white"/><circle cx="60%" cy="30%" r="1" fill="white"/><circle cx="70%" cy="15%" r="1" fill="white"/><circle cx="80%" cy="25%" r="1" fill="white"/><circle cx="90%" cy="10%" r="1" fill="white"/><circle cx="15%" cy="70%" r="1" fill="white"/><circle cx="25%" cy="80%" r="1" fill="white"/><circle cx="35%" cy="75%" r="1" fill="white"/><circle cx="45%" cy="90%" r="1" fill="white"/><circle cx="55%" cy="85%" r="1" fill="white"/><circle cx="65%" cy="95%" r="1" fill="white"/><circle cx="75%" cy="70%" r="1" fill="white"/><circle cx="85%" cy="80%" r="1" fill="white"/><circle cx="95%" cy="75%" r="1" fill="white"/></svg>');
-      }
-
-      .logo {
-        animation: pulse 2s infinite alternate;
-      }
-
-      @keyframes pulse {
-        from {
-          transform: scale(1);
-          opacity: 0.7;
-        }
-        to {
-          transform: scale(1.1);
-          opacity: 1;
-        }
-      }
+      /* Loader styles - Removed since we're not using it */
     </style>
   </head>
   <body>
@@ -301,13 +254,6 @@
     <!-- Tooltip -->
     <div class="tooltip" id="tooltip"></div>
 
-    <script>
-      window.addEventListener("load", () => {
-        const loader = document.getElementById("loader");
-        setTimeout(() => loader.classList.add("loader-hidden"), 3000);
-        setTimeout(() => loader.remove(), 4000);
-      });
-    </script>
-    <script defer type="module" src="/src/index.js"></script>
+    <script defer type="module" src="./index.js"></script>
   </body>
 </html>

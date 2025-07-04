@@ -1,5 +1,13 @@
-import { defineConfig } from "vite";
 
-export default defineConfig({
-  base: "/solar-system-threejs",
-});
+
+export default {
+  build: {
+    outDir: './public',
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: './index.html'
+      }
+    }
+  }
+}

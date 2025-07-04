@@ -10,10 +10,11 @@ import {
   Color,
 } from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { Sun } from "./sun";
-import { Earth } from "./earth";
-import { Planet } from "./planet";
-import { Starfield } from "./starfield";
+import { Sun } from "./src/sun";
+import { Earth } from "./src/earth";
+import { Planet } from "./src/planet";
+import { Starfield } from "./src/starfield";
+
 
 const w = window.innerWidth;
 const h = window.innerHeight;
@@ -36,7 +37,7 @@ renderer.toneMapping = ACESFilmicToneMapping;
 renderer.outputColorSpace = LinearSRGBColorSpace;
 document.body.appendChild(renderer.domElement);
 
-
+// Track current theme
 let currentTheme = 'dark';
 
 const sun = new Sun().getSun();
@@ -52,7 +53,7 @@ const earth = new Earth({
   planetAngle: (-23.4 * Math.PI) / 180,
   planetRotationSpeed: 0.01,
   planetRotationDirection: "counterclockwise",
-  planetTexture: "/assets/earth-map-1.jpg",
+  planetTexture: "./assets/earth-map.jpg",
 }).getPlanet();
 earth.userData = { name: "Earth", planetSize: 0.5, orbitSpeed: 0.00029 };
 scene.add(earth);
@@ -66,7 +67,7 @@ const planetsData = [
     planetRotationSpeed: 0.005,
     planetRotationDirection: "counterclockwise",
     orbitRotationDirection: "clockwise",
-    planetTexture: "/solar-system-threejs/assets/mercury-map.jpg",
+    planetTexture: "./assets/mercury-map.jpg",
     rimHex: 0xf9cf9f,
   },
   {
@@ -77,7 +78,7 @@ const planetsData = [
     planetRotationSpeed: 0.0005,
     planetRotationDirection: "clockwise",
     orbitRotationDirection: "clockwise",
-    planetTexture: "/solar-system-threejs/assets/venus-map.jpg",
+    planetTexture: "./assets/venus-map.jpg",
     rimHex: 0xb66f1f,
   },
   {
@@ -88,7 +89,7 @@ const planetsData = [
     planetRotationSpeed: 0.01,
     planetRotationDirection: "counterclockwise",
     orbitRotationDirection: "clockwise",
-    planetTexture: "/solar-system-threejs/assets/mars-map.jpg",
+    planetTexture: "./assets/mars-map.jpg",
     rimHex: 0xbc6434,
   },
   {
@@ -99,7 +100,7 @@ const planetsData = [
     planetRotationSpeed: 0.06,
     planetRotationDirection: "counterclockwise",
     orbitRotationDirection: "clockwise",
-    planetTexture: "/solar-system-threejs/assets/jupiter-map.jpg",
+    planetTexture: "./assets/jupiter-map.jpg",
     rimHex: 0xf3d6b6,
   },
   {
@@ -110,11 +111,11 @@ const planetsData = [
     planetRotationSpeed: 0.05,
     planetRotationDirection: "counterclockwise",
     orbitRotationDirection: "clockwise",
-    planetTexture: "/solar-system-threejs/assets/saturn-map.jpg",
+    planetTexture: "./assets/saturn-map.jpg",
     rimHex: 0xd6b892,
     rings: {
       ringsSize: 0.5,
-      ringsTexture: "/solar-system-threejs/assets/saturn-rings.jpg",
+      ringsTexture: "./assets/saturn-rings.jpg",
     },
   },
   {
@@ -125,11 +126,11 @@ const planetsData = [
     planetRotationSpeed: 0.02,
     planetRotationDirection: "clockwise",
     orbitRotationDirection: "clockwise",
-    planetTexture: "/solar-system-threejs/assets/uranus-map.jpg",
+    planetTexture: "./assets/uranus-map.jpg",
     rimHex: 0x9ab6c2,
     rings: {
       ringsSize: 0.4,
-      ringsTexture: "/solar-system-threejs/assets/uranus-rings.jpg",
+      ringsTexture: "./assets/uranus-rings.jpg",
     },
   },
   {
@@ -140,7 +141,7 @@ const planetsData = [
     planetRotationSpeed: 0.02,
     planetRotationDirection: "counterclockwise",
     orbitRotationDirection: "clockwise",
-    planetTexture: "/solar-system-threejs/assets/neptune-map.jpg",
+    planetTexture: "./assets/neptune-map.jpg",
     rimHex: 0x5c7ed7,
   },
 ];
@@ -259,21 +260,21 @@ planetObjects.forEach((p) => {
   planetControlsContainer.appendChild(div);
 });
 
-
+// Control panel toggle with proper scrolling
 document.getElementById("toggle-panel").addEventListener("click", (e) => {
   e.stopPropagation();
   const panelContent = document.querySelector(".panel-content");
   panelContent.classList.toggle("expanded");
   
-  
+  // Force reflow to ensure smooth transition
   if (panelContent.classList.contains("expanded")) {
     panelContent.style.overflowY = "hidden";
-    void panelContent.offsetHeight; 
+    void panelContent.offsetHeight; // Trigger reflow
     panelContent.style.overflowY = "auto";
   }
 });
 
-
+// Prevent panel from closing when clicking inside
 document.querySelector(".panel-content").addEventListener("click", (e) => {
   e.stopPropagation();
 });
