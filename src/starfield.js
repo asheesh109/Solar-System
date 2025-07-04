@@ -45,7 +45,7 @@ export class Starfield {
       transparent: true,
       vertexColors: true,
       blending: AdditiveBlending,
-      map: this.loader.load("/assets/circle.png"),
+      map: this.loader.load("./assets/circle.png"),
     });
     this.points = new Points(geo, this.starMaterial);
     this.group.add(this.points);

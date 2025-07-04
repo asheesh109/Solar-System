@@ -17,7 +17,7 @@ import { ImprovedNoise } from "three/addons/math/ImprovedNoise.js";
 
 export class Sun {
   constructor() {
-    this.sunTexture = "/assets/sun-map.jpg";
+    this.sunTexture = "./assets/sun-map.jpg";
     this.group = new Group();
     this.loader = new TextureLoader();
     this.isLightTheme = false;

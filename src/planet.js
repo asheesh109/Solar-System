@@ -33,7 +33,7 @@ export class Planet {
     planetAngle = 0,
     planetRotationSpeed = 1,
     planetRotationDirection = "clockwise",
-    planetTexture = "/assets/mercury-map.jpg",
+    planetTexture = "./assets/mercury-map.jpg",
 
     rimHex = 0x0088ff,
     facingHex = 0x000000,
