@@ -73,64 +73,109 @@ git clone https://github.com/your-username/solar-system-threejs.git
 cd solar-system-threejs
 npm install
 
+---
 
-🧪 Running the Application (Development)
-bash
-Copy
-Edit
+
+## 🧪 Running the Application (Development)
+
+Start the development server with hot reload:
+
+```bash
 npm run dev
-📦 Building for Production
-bash
-Copy
-Edit
+```
+
+---
+
+## 📦 Building for Production
+
+Create an optimized production build:
+
+```bash
 npm run build
-⚙️ Configuration
-Modify the following files to customize:
+```
 
-File	Configurable Parameters
-src/planet.js	Orbital mechanics, sizes
-src/earth.js	Clouds, glow, atmosphere layers
-src/sun.js	Light color, intensity, shaders
+---
 
-🧩 Project Structure
-csharp
-Copy
-Edit
+## ⚙️ Configuration
+
+You can customize the core simulation settings in the following files:
+
+| File            | Configurable Parameters               |
+|------------------|----------------------------------------|
+| `src/planet.js` | Orbital mechanics, planet sizes        |
+| `src/earth.js`  | Cloud layers, glow, atmospheric effects|
+| `src/sun.js`    | Lighting, color intensity, shaders     |
+
+---
+
+## 🧩 Project Structure
+
+```
 solar-system/
 ├── public/              # Static assets
 │   ├── textures/        # Planetary textures
-│   └── preview.png
+│   └── preview.png      # Project preview image
 ├── src/
 │   ├── planet.js        # Base planet class
-│   ├── earth.js         # Earth with atmosphere
-│   ├── sun.js           # Sun with shaders
-│   ├── starfield.js     # Star background
-│   └── main.js          # Entry point (scene setup)
-├── package.json         # NPM dependencies
-└── vite.config.js       # Vite config
-🌍 Adding New Planets
-Create a new file, e.g., mars.js, and extend the Planet class.
+│   ├── earth.js         # Earth with clouds and glow
+│   ├── sun.js           # Sun with shader effects
+│   ├── starfield.js     # Background starfield generation
+│   └── main.js          # Scene and renderer setup
+├── package.json         # Project dependencies and scripts
+└── vite.config.js       # Vite build and dev config
+```
 
-Define its orbital radius, speed, and texture.
+---
 
-Import and add it in main.js.
+## 🌍 Adding New Planets
 
-Example:
+To add a new planet:
 
-js
-Copy
-Edit
+1. **Create a new file** (e.g., `mars.js`) and extend the `Planet` class.
+2. **Define orbital properties** like radius, speed, and texture.
+3. **Import and include it** in the scene via `main.js`.
+
+### 🧩 Example
+
+```js
+// mars.js
+import { Planet } from './planet.js';
+
+export class Mars extends Planet {
+  constructor(props) {
+    super({ ...props, name: "Mars", texture: "mars.jpg", ... });
+  }
+}
+```
+
+```js
+// main.js
 import { Mars } from './mars.js';
-const mars = new Mars({ ... });
+
+const mars = new Mars({ orbitRadius: 60, orbitSpeed: 0.02 });
 scene.add(mars.mesh);
-📄 License
-This project is open-source and available under the MIT License.
-Feel free to modify and use it for educational or personal projects.
+```
 
-🙌 Acknowledgements
-Three.js
+---
 
-Planet Pixel Emporium
+## 📄 License
 
+This project is licensed under the **MIT License**.  
+Feel free to use, modify, and share it for personal or educational purposes.
 
-If you like this project, don't forget to ⭐ star the repo!
+---
+
+## 🙌 Acknowledgements
+
+- [Three.js](https://threejs.org/) – The core 3D engine powering the simulation  
+- [Planet Pixel Emporium](http://planetpixelemporium.com/) – High-quality planetary textures  
+- All contributors and open-source tools involved
+
+---
+
+## 🔗 Connect
+
+- 💼 [Your LinkedIn](https://www.linkedin.com/in/yourprofile/)
+- 🧑‍💻 [Your GitHub](https://github.com/your-username)
+
+> If you like this project, don’t forget to ⭐ star the repository!
