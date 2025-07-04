@@ -1,98 +1,136 @@
-Solar System Simulation with Three.js
-https://./public/preview.png
+# 🌌 Solar System Simulation with Three.js
 
-Overview
-This 3D solar system simulation is built using Three.js to demonstrate realistic planetary motion and celestial visualization. The project features accurate orbital mechanics, atmospheric effects, and dynamic lighting in an interactive WebGL environment.
+![Preview](https://./public/preview.png)
 
-Key Features
-Realistic planetary orbits with configurable speeds and directions
+A realistic and interactive 3D simulation of our solar system built using **Three.js**, featuring orbital mechanics, atmospheric effects, dynamic lighting, and responsive camera controls. This project is designed for educational and visual exploration of planetary motion in a WebGL-powered environment.
 
-Multi-layered planet rendering (surface, atmosphere, city lights)
+---
 
-Dynamic sun effects with corona animations and light scattering
+## 🚀 Overview
 
-Interactive controls for zooming and adjusting simulation speeds
+This simulation showcases the beauty of our solar system with:
 
-Theme switching between light and dark modes
+- Realistic planetary orbits
+- Dynamic sun effects
+- Layered planet rendering (surface, clouds, city lights)
+- Interactive controls and theme switching
+- Optimized 3D performance using shaders and buffer geometries
 
-Optimized performance using buffer geometries and shader materials
+---
 
-Technical Implementation
-Core Architecture
-The system uses a modular class-based design:
+## ✨ Key Features
 
-Planet.js - Base class handling orbital mechanics and basic rendering
+✅ Realistic **planetary orbits** with configurable speed & direction  
+✅ Multi-layered planet rendering (**surface, atmosphere, city lights**)  
+✅ **Dynamic sun effects** with corona animations and light scattering  
+✅ **Zoom, pan, and rotate** via OrbitControls  
+✅ **Light/Dark mode** theme toggle  
+✅ Optimized using **buffer geometries** & **shader materials**  
+✅ Expandable to include more celestial bodies
 
-Earth.js - Extended class with special atmospheric effects
+---
 
-Sun.js - Custom implementation with dynamic surface effects
+## 🛠️ Technical Implementation
 
-Starfield.js - Background star generation
+### 🔧 Core Architecture
 
-Dependencies
-Three.js (v156+) - Core 3D rendering library
+The simulation uses a modular, class-based system:
 
-Vite - Build tool and development server
+| File          | Description                                   |
+|---------------|-----------------------------------------------|
+| `planet.js`   | Base class for planets (handles orbit, mesh)  |
+| `earth.js`    | Extends Planet with clouds and atmosphere     |
+| `sun.js`      | Sun rendering with custom shaders and light   |
+| `starfield.js`| Star background using particles               |
+| `main.js`     | Initializes scene, renderer, and camera       |
 
-OrbitControls - Camera navigation
+---
 
-ImprovedNoise - Sun corona effects
+## 📦 Dependencies
 
-Asset Sources
-All planetary textures were sourced from:
+- [Three.js (v0.156+)](https://threejs.org/)
+- [Vite](https://vitejs.dev/) – Build tool & dev server
+- `OrbitControls` – Camera interaction
+- `ImprovedNoise` – Shader noise for sun’s corona
 
-Planetary Pixel Emporium (Primary textures)
+---
 
-Custom created ring and star textures
+## 🖼️ Asset Sources
 
-Getting Started
-Installation
-Clone the repository
+- Planetary Textures: [Planetary Pixel Emporium](http://planetpixelemporium.com/)
+- Custom Ring and Star Textures (public domain)
 
-Install dependencies:
+---
 
-bash
+## 🧑‍💻 Getting Started
+
+### 🔄 Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/your-username/solar-system-threejs.git
+cd solar-system-threejs
 npm install
-Running the Application
-Start the development server:
 
+
+🧪 Running the Application (Development)
 bash
+Copy
+Edit
 npm run dev
-Build for production:
-
+📦 Building for Production
 bash
+Copy
+Edit
 npm run build
-Configuration
-Key parameters can be adjusted in:
+⚙️ Configuration
+Modify the following files to customize:
 
-src/planet.js (Orbital mechanics)
+File	Configurable Parameters
+src/planet.js	Orbital mechanics, sizes
+src/earth.js	Clouds, glow, atmosphere layers
+src/sun.js	Light color, intensity, shaders
 
-src/earth.js (Atmospheric effects)
-
-src/sun.js (Lighting parameters)
-
-Project Structure
-text
+🧩 Project Structure
+csharp
+Copy
+Edit
 solar-system/
 ├── public/              # Static assets
 │   ├── textures/        # Planetary textures
 │   └── preview.png
 ├── src/
 │   ├── planet.js        # Base planet class
-│   ├── earth.js         # Earth implementation
-│   ├── sun.js           # Sun implementation  
-│   ├── starfield.js     # Background stars
-│   └── main.js          # Scene setup
-├── package.json         # Project configuration
-└── vite.config.js       # Build configuration
-Customization
-To add new planets:
+│   ├── earth.js         # Earth with atmosphere
+│   ├── sun.js           # Sun with shaders
+│   ├── starfield.js     # Star background
+│   └── main.js          # Entry point (scene setup)
+├── package.json         # NPM dependencies
+└── vite.config.js       # Vite config
+🌍 Adding New Planets
+Create a new file, e.g., mars.js, and extend the Planet class.
 
-Create a new class extending Planet.js
+Define its orbital radius, speed, and texture.
 
-Configure orbital parameters and textures
+Import and add it in main.js.
 
-Add to the scene in main.js
+Example:
 
-License
-This project is open source and available under the MIT License.
+js
+Copy
+Edit
+import { Mars } from './mars.js';
+const mars = new Mars({ ... });
+scene.add(mars.mesh);
+📄 License
+This project is open-source and available under the MIT License.
+Feel free to modify and use it for educational or personal projects.
+
+🙌 Acknowledgements
+Three.js
+
+Planet Pixel Emporium
+
+
+If you like this project, don't forget to ⭐ star the repo!
