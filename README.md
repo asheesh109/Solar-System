@@ -173,9 +173,5 @@ Feel free to use, modify, and share it for personal or educational purposes.
 
 ---
 
-## 🔗 Connect
-
-- 💼 [Your LinkedIn](https://www.linkedin.com/in/yourprofile/)
-- 🧑‍💻 [Your GitHub](https://github.com/your-username)
 
 > If you like this project, don’t forget to ⭐ star the repository!
