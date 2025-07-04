@@ -1,6 +1,5 @@
-// vite.config.js
 export default {
-  base: './', // 👈 important: use relative paths
+  base: '/Solar-System/', // 👈 match your GitHub repo name exactly
   build: {
     outDir: 'dist',
     emptyOutDir: true,
