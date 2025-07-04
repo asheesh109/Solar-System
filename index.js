@@ -10,10 +10,10 @@ import {
   Color,
 } from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { Sun } from "./src/sun";
-import { Earth } from "./src/earth";
-import { Planet } from "./src/planet";
-import { Starfield } from "./src/starfield";
+import { Sun } from "./src/sun.js";
+import { Earth } from "./src/earth.js";
+import { Planet } from "./src/planet.js";
+import { Starfield } from "./src/starfield.js";
 
 
 const w = window.innerWidth;
