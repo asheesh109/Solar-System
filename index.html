@@ -2,16 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Interactive Solar System</title>
     <meta name="description" content="Interactive 3D Solar System with Three.js" />
-    
-    <!-- ✅ Correct favicon path for GitHub Pages -->
-    <link rel="icon" href="/Solar-System/favicon.ico" />
-
+    <link rel="icon" href="./favicon.ico" />
     <style>
       body {
         margin: 0;
@@ -27,6 +21,7 @@
         z-index: 1;
       }
 
+      /* Control Panel Styles */
       .control-panel {
         position: fixed;
         z-index: 10;
@@ -79,15 +74,14 @@
         padding: 0 15px 15px;
       }
 
+      /* Custom scrollbar */
       .panel-content::-webkit-scrollbar {
         width: 6px;
       }
-
       .panel-content::-webkit-scrollbar-track {
         background: rgba(255, 255, 255, 0.1);
         border-radius: 3px;
       }
-
       .panel-content::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.3);
         border-radius: 3px;
@@ -205,15 +199,15 @@
         .control-panel {
           max-width: 280px;
         }
-
+        
         .panel-content.expanded {
           max-height: 60vh;
         }
-
+        
         .global-controls {
           flex-direction: column;
         }
-
+        
         button {
           width: 50%;
         }
@@ -222,6 +216,8 @@
           display: none;
         }
       }
+
+      /* Loader styles - Removed since we're not using it */
     </style>
   </head>
   <body>
@@ -231,12 +227,12 @@
         <h2>Solar System Controls</h2>
         <button id="toggle-panel">☰</button>
       </div>
-
+      
       <div class="panel-content">
         <div id="planet-controls">
           <!-- Planet controls will be added here dynamically -->
         </div>
-
+        
         <div class="global-controls">
           <button id="pause-resume">Pause</button>
           <button id="reset-speeds">Reset Speeds</button>
@@ -250,16 +246,16 @@
 
     <!-- Zoom Instructions -->
     <div class="zoom-instructions">
-      <strong>Zoom Controls:</strong><br />
-      • Click any planet to zoom in<br />
-      • Use "Reset View" to return to overview<br />
+      <strong>Zoom Controls:</strong><br>
+      • Click any planet to zoom in<br>
+      • Use "Reset View" to return to overview<br>
       • Mouse controls to orbit around planets
     </div>
 
     <!-- Tooltip -->
     <div class="tooltip" id="tooltip"></div>
 
-    <!-- ✅ Updated script path to match GitHub Pages base path -->
-    <script defer type="module" src="/Solar-System/index.js"></script>
+    <script defer type="module" src="./index.js"></script>
+
   </body>
 </html>
